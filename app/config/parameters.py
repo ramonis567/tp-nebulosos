@@ -13,6 +13,6 @@ Q_EXTRA_DEFAULT = 0.0
 # Carga térmica de resfriamento padrão (W)
 Q_COOL_DEFAULT = 0.0
 # Capacidade máxima de resfriamento (W)
-Q_MAX = 18_000.0
+Q_MAX = 20_000.0
 # Constante de tempo do ventilador (s)
 TAU_FAN = 10.0

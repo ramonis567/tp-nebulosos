@@ -1,8 +1,5 @@
 """
-Gate 5 – Streamlit Entry Point
-
-Launch with:
-    streamlit run app/main.py
+Streamlit runner.
 """
 
 import streamlit as st

@@ -1,9 +1,10 @@
 # app/ai/prompt_builder.py
 """
-Prompt builder for the HVAC AI assistant.
+Prompt builder para o assistente de IA.
 
-Takes the current simulation state + diagnostics + user question and
-builds a structured prompt for the Gemini model.
+Lê os estados da simulação e da planta para
+gerar um prompt e conseguir a resposta no
+modelo do gemini.
 """
 
 from __future__ import annotations

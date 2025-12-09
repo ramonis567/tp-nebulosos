@@ -1,12 +1,5 @@
 """
-Gate 4 – Simulation Engine
-
-Connects:
-    Fuzzy Controller → Fan Inertia → Cooling Power → Thermal Plant
-
-Provides:
-    - A single simulation step function.
-    - A helper to run a full simulation for a given duration.
+Engine de simulação discreta para o sistema térmico com controle fuzzy.
 """
 
 from __future__ import annotations
@@ -29,26 +22,20 @@ def simulate_step(
     q_extra: float,
 ) -> SimulationState:
     """
-    Runs one discrete simulation step.
+    Roda uma etapa discreta de simulação.
 
-    Flow:
-      1. Compute error: e = T - T_set (inside fuzzy controller).
-      2. Fuzzy control → u_fuzzy.
-      3. Fan inertia → fan_speed_next.
-      4. Cooling power from fan speed.
-      5. Disturbance power from base + extra.
-      6. Thermal update → new temperature.
-      7. Advance time.
+    Fluxo:
 
-    Args:
-        state: Current simulation state.
-        controller: Fuzzy controller instance.
-        T_set: Temperature setpoint (°C).
-        humidity: Humidity (%RH).
-        q_extra: Extra disturbance load (W).
+    1 - Calcular erro: e = T - T_set (dentro do controlador fuzzy).
+    2 - Controle fuzzy → u_fuzzy.
+    3 - Inércia do ventilador → fan_speed_next.
+    4 - Potência de resfriamento a partir da velocidade do ventilador.
+    5 - Potência de perturbação a partir da base + extra.
+    6 - Atualização térmica → nova temperatura.
+    7 - Avançar o tempo.
 
-    Returns:
-        SimulationState: Updated state after one time step.
+    Retorna:
+        SimulationState: Atualizado após execução.
     """
     # 1–2. Fuzzy control
     u_fuzzy = controller.compute_u_fuzzy(
@@ -97,19 +84,6 @@ def run_simulation(
     q_extra: float,
     T0: float | None = None,
 ) -> Tuple[SimulationState, SimulationHistory]:
-    """
-    Runs a full simulation for a given duration.
-
-    Args:
-        duration_s: Total simulation time in seconds.
-        T_set: Temperature setpoint (°C).
-        humidity: Humidity (%RH).
-        q_extra: Extra disturbance load (W).
-        T0: Optional initial temperature (°C). If None, uses parameters.T_INITIAL.
-
-    Returns:
-        (final_state, history)
-    """
     controller = ErrorHumidityFuzzyController()
     state = SimulationState.initial(T0=T0)
     history = SimulationHistory()

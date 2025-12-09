@@ -1,9 +1,8 @@
-# app/ai/diagnostics.py
 """
-Diagnostics module for the HVAC fuzzy simulator.
+Módulo de diagnóstico da simulação.
 
-Transforms raw simulation state into semantic labels that can be used
-by the AI assistant to explain the system behavior in human terms.
+Transforma a leitura dos estados da simulação em diagnósticos categóricos
+e quantitativos para interpretação e explicação ao modelo.
 """
 
 from __future__ import annotations
@@ -48,10 +47,6 @@ class Diagnostics:
 
 
 def _classify_error_label(error_value: float) -> ErrorLabel:
-    """
-    Classify temperature error according to the fuzzy universe:
-        NL, NS, ZE, PS, PL
-    """
     e = error_value
     if e <= -5.0:
         return "NL"
@@ -65,9 +60,6 @@ def _classify_error_label(error_value: float) -> ErrorLabel:
 
 
 def _classify_fan_regime(fan_speed: float) -> FanRegime:
-    """
-    Classify fan speed into qualitative regimes.
-    """
     u = fan_speed
     if u < 5.0:
         return "off"
@@ -81,11 +73,6 @@ def _classify_fan_regime(fan_speed: float) -> FanRegime:
 
 
 def _classify_load_regime(q_dist: float) -> LoadRegime:
-    """
-    Classify total disturbance load as light / moderate / heavy.
-
-    Uses rough thresholds around typical office/industrial ranges.
-    """
     if q_dist < 3000.0:
         return "light"
     if q_dist < 5500.0:
@@ -94,9 +81,6 @@ def _classify_load_regime(q_dist: float) -> LoadRegime:
 
 
 def _classify_comfort_state(T: float, T_set: float) -> ComfortState:
-    """
-    Compare current temperature with comfort band around setpoint.
-    """
     if T < T_set - 1.0:
         return "below comfort"
     if T > T_set + 1.0:
@@ -105,9 +89,6 @@ def _classify_comfort_state(T: float, T_set: float) -> ComfortState:
 
 
 def _classify_aggressiveness(u_fuzzy: float) -> Aggressiveness:
-    """
-    Classify fuzzy output level.
-    """
     u = u_fuzzy
     if u < 25.0:
         return "weak"
@@ -117,10 +98,6 @@ def _classify_aggressiveness(u_fuzzy: float) -> Aggressiveness:
 
 
 def _classify_energy_balance(q_cool: float, q_dist: float) -> EnergyBalanceState:
-    """
-    Compare cooling and disturbance power to indicate whether the system
-    is currently winning or losing the thermal battle.
-    """
     delta_q = q_cool - q_dist
     if delta_q < -500.0:
         return "deficit"
@@ -132,19 +109,10 @@ def _classify_energy_balance(q_cool: float, q_dist: float) -> EnergyBalanceState
 def build_diagnostics(
     state: SimulationState,
     T_set: float,
-    humidity: float,  # kept for possible future use in diagnostics
+    humidity: float,
 ) -> Diagnostics:
     """
-    Build a Diagnostics object from the current simulation state.
-
-    Args:
-        state: Current SimulationState.
-        T_set: Temperature setpoint (°C).
-        humidity: Ambient humidity (%). Currently not used for thresholds,
-                  but included for future refinement.
-
-    Returns:
-        Diagnostics: semantic interpretation of the control situation.
+    Constroí um objeto de diagnóstico para ler os estados da simulação.
     """
     error_value = state.temperature - T_set
     error_label = _classify_error_label(error_value)

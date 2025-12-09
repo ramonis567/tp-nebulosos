@@ -1,10 +1,6 @@
 """
-Gate 5 – Plot Utilities
-
-Provides matplotlib plots for:
-  - Temperature vs time with setpoint band.
-  - Fan speed vs time (fan & fuzzy output).
-  - Cooling and disturbance powers vs time.
+Provê funções para plotagem de gráficos relacionados 
+à simulação do sistema de controle de temperatura.
 """
 
 from __future__ import annotations

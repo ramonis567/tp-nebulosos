@@ -1,10 +1,6 @@
 # app/ui/realtime_panel.py
 """
-Real-time simulation panel for the HVAC fuzzy controller.
-
-This panel runs the closed-loop simulation step-by-step, giving the
-feeling of a live system:
-    Fuzzy → Fan → Cooling → Thermal Plant → Temperature.
+Painel de simulação em tempo real para o sistema HVAC com controle fuzzy.
 """
 
 from __future__ import annotations
@@ -24,10 +20,6 @@ from app.ui.plots import (
 
 
 def _ensure_rt_initialized() -> None:
-    """
-    Ensure that the real-time simulation state exists in session_state.
-    Uses the same configuration parameters as the batch simulation.
-    """
     if "rt_initialized" in st.session_state and st.session_state["rt_initialized"]:
         return
 

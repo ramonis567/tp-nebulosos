@@ -1,12 +1,12 @@
 # app/ai/assistant.py
 """
-High-level AI assistant integration for the HVAC fuzzy simulator.
+Integração de assistente de IA de alto nível para o simulador fuzzy HVAC.
 
-This module wraps:
-  - Diagnostics extraction
-  - Prompt building
-  - Gemini API call
-  - Fallback explanation in case of API failure
+Este módulo encapsula:
+    - Extração de diagnósticos
+    - Construção de prompts
+    - Chamada da API Gemini
+    - Explicação alternativa em caso de falha na API
 """
 
 from __future__ import annotations
@@ -25,12 +25,6 @@ def generate_ai_explanation(
     humidity: float,
     user_question: str,
 ) -> str:
-    """
-    Generate an explanation about the current system state or answer the
-    user's question, using Google Gemini when possible.
-
-    Falls back to a deterministic, non-AI explanation if the API call fails.
-    """
     diagnostics = build_diagnostics(state, T_set, humidity)
 
     try:

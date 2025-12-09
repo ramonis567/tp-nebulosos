@@ -1,10 +1,5 @@
 """
-Gate 5 – Dashboard UI
-
-Defines the Streamlit UI:
-  - Sidebar controls (setpoint, humidity, disturbance, duration).
-  - Run button.
-  - Metrics and plots.
+Dashboard UI para o HVAC Fuzzy Control Simulator.
 """
 from __future__ import annotations
 

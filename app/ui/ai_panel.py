@@ -1,10 +1,6 @@
 # app/ui/ai_panel.py
 """
-Gate 5+ – AI Assistant Panel (Explainable Fuzzy HVAC)
-
-This module defines the Streamlit UI for the AI assistant.
-It mirrors the legacy "Tutor IA" behavior, but now explains the
-FULL closed-loop HVAC simulation state.
+Painel de assistente de IA para o sistema HVAC nebuloso.
 """
 
 from __future__ import annotations

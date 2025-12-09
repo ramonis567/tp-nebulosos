@@ -4,5 +4,8 @@ matplotlib
 streamlit
 openai
 scipy
-networkx packaging
+networkx 
+packaging
 python-dotenv
+google.generativeai
+pytest

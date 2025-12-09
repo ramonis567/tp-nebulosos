@@ -1,7 +1,7 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import google.generativeai as genai
-from controle_ar_condicionado import calcular_ar_condicionado
+from legacy.controle_ar_condicionado import calcular_ar_condicionado
 
 
 def gerar_explicacao_gemini_com_contexto(temp_val, umid_val, velocidade, pergunta_usuario):
